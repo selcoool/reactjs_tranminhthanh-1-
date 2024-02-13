@@ -16,6 +16,7 @@ class Modal extends Component {
       <div className='z-10 fixed inset-0 flex justify-center items-center bg-orange-200/20 h-screen w-screen' onClick={this.handleCloseModal}>
         <div className="relative bg-blue-400 m-2 p-5 w-[380px] md:w-[550px] lg:w-[750px] flex flex-col gap-2 ">
           <span className='close absolute top-0 right-2 cursor-pointer' onClick={closeModal}>&times;</span>
+          <img src={detail.image} className='h-[150px] w-[150px]'/>
           <h2>{detail.name}</h2>
           <p>{detail.description}</p>
           <p>Price: {detail.price}</p>
