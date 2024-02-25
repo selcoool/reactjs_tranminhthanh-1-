@@ -10,6 +10,8 @@ class ListShoes extends Component {
           key={item.id} 
           handleToggleModal={this.props.handleToggleModal}
           handleSelectProduct={this.props.handleSelectProduct}
+          handleAddToCart={this.props.handleAddToCart}
+          handleToggleCartModal={this.props.handleToggleCartModal}
         />
       );
     });

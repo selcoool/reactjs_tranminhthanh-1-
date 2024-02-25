@@ -8,6 +8,14 @@ class Shoes extends Component {
   
   };
 
+ handleToggleCart=(shoe)=>{
+  // this.props.handleToggleCartModal()
+  this.props.handleAddToCart(shoe)
+ }
+ 
+
+
+
   render() {
     const { image, name, price } = this.props.shoes;
     
@@ -18,7 +26,7 @@ class Shoes extends Component {
         </div>
         <p className='text-2xl'>{name}</p>
         <p className='text-lg'>{price}</p>
-        <div className='bg-black flex justify-center items-center text-white gap-2 cursor-pointer'  onClick={this.handleClick}>Add To Cart <MdOutlineShoppingCart className='text-xl'  /></div>
+        <div className='bg-black flex justify-center items-center text-white gap-2 cursor-pointer'  onClick={()=>this.handleToggleCart(this.props.shoes)}>Add To Cart <MdOutlineShoppingCart className='text-xl'  /></div>
       </div>
     );
   }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ListShoes from './ListShoes';
 import Modal from './Modal';
+import ModalCart from './ModalCart';
 
 class ShoesStore extends Component {
   constructor(props) {
@@ -129,12 +130,15 @@ class ShoesStore extends Component {
         } 
       ], // Danh sách giày
       detail: null, // Chi tiết của sản phẩm được chọn
-      isOpen: false
+      isOpen: false,
+      cart:[],
+      isCartOpen: false,
     };
   }
 
+
   handleToggleModal = () => {
-    console.log("handleToggleModal called");
+    // console.log("handleToggleModal called");
     this.setState(prevState => ({
       isOpen: !prevState.isOpen
     }));
@@ -146,6 +150,30 @@ class ShoesStore extends Component {
       isOpen: true
     });
   };
+  
+  handleToggleCartModal = () => {
+    this.setState(prevState => ({
+      isCartOpen: !prevState.isCartOpen
+    }));
+  };
+
+
+  handleAddToCart = (shoe) => {
+    const { cart } = this.state;
+    const existingIndex = cart.findIndex(item => item.id === shoe.id);
+
+    if (existingIndex !== -1) {
+      const updatedCart = [...cart];
+      updatedCart[existingIndex].quantity++;
+      this.setState({ cart: updatedCart });
+    } else {
+      const updatedCart = [...cart, { ...shoe, quantity: 1 }];
+      this.setState({ cart: updatedCart });
+    }
+    this.setState({ isCartOpen: true }); // Open cart modal after adding item
+  };
+
+
 
   render() {
     return (
@@ -156,6 +184,8 @@ class ShoesStore extends Component {
             shoesArr={this.state.shoes}  
             handleToggleModal={this.handleToggleModal}
             handleSelectProduct={this.handleSelectProduct}
+            handleAddToCart={this.handleAddToCart}
+            handleToggleCartModal={this.handleToggleCartModal}
           />
 
         <Modal 
@@ -163,6 +193,11 @@ class ShoesStore extends Component {
           closeModal={this.handleToggleModal} 
           detail={this.state.detail} 
         />
+
+       <button className='button mt-4' onClick={this.handleToggleCartModal}>View Cart</button>
+        <ModalCart isOpen={this.state.isCartOpen} closeModal={this.handleToggleCartModal} cart={this.state.cart} />
+
+     
         </div>
         
       </div>
